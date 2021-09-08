@@ -21,7 +21,9 @@ app.use(morgan(":method :url :status :res[content-length] - :response-time "));
 
 app.use(cors());
 
+initRoutes(app);
 
+db.sequelize.sync();
 const db = {};
 
 db.Sequelize = Sequelize;

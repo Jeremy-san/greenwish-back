@@ -3,12 +3,13 @@ const Tutorial = db.tutorials;
 
 const readXlsxFile = require("read-excel-file/node");
 
+//permet de vérifier le téléchargement du ficher 
 const upload = async (req, res) => {
   try {
     if (req.file == undefined) {
       return res.status(400).send("Please upload an excel file!");
     }
-
+// permet de lire le fichier, les données sont renvoyés rowq seront modifiées en tutorials tableau
     let path =
       __basedir + "/assets/uploads/" + req.file.filename;
 
@@ -35,7 +36,8 @@ const upload = async (req, res) => {
 
         tutorials.push(tutorial);
       });
-
+      
+//permet d'enregistrer dans la base de données MySql
       Tutorial.bulkCreate(tutorials)
         .then(() => {
           res.status(200).send({
